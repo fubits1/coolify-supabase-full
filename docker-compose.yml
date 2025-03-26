@@ -112,6 +112,8 @@ services:
         target: /docker-entrypoint-initdb.d/migrations/99-logs.sql
         content: "\\set pguser `echo \"supabase_admin\"`\n\\c _supabase\ncreate schema if not exists _analytics;\nalter schema _analytics owner to :pguser;\n\\c postgres\n"
       - 'supabase-db-config:/etc/postgresql-custom'
+    ports:
+      - '5432:5432'
   supabase-analytics:
     image: 'supabase/logflare:1.4.0'
     healthcheck:
